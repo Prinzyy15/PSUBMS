@@ -15,7 +15,8 @@
     padding: 5px 0;
 }
 .list-table-container {
-    /*border-bottom: 1px dashed #c8c8c8;*/
+    /*container wrapper for list tables*/
+    margin-bottom: 12px;
 }
 .list-inline li {
     display: inline;
@@ -33,6 +34,20 @@
 @section('content')
 <div class="container">
     <h3>Student Management</h3>
+    <div class="metric-row my-3">
+        <div class="metric-card small glass-panel">
+            <div class="metric-label">Active Students</div>
+            <div class="metric-number">{{ count($active_students) ?? 0 }}</div>
+        </div>
+        <div class="metric-card small glass-panel">
+            <div class="metric-label">Total Students</div>
+            <div class="metric-number">{{ count($students) ?? 0 }}</div>
+        </div>
+        <div class="metric-card small glass-panel">
+            <div class="metric-label">Courses</div>
+            <div class="metric-number">{{ count($courses) ?? 0 }}</div>
+        </div>
+    </div>
     <div class="row mb-5 pb-5 list-table-container">
         <div class="col-sm-12">
             <button type="button" class="btn btn-sm btn-success mb-2 font-weight-bold float-right" data-toggle="modal" data-target="#addStudentModal">
@@ -50,7 +65,21 @@
                 </div>
             </div>
 
-            <table id="list" class="table table-hover table-borderless shadow-sm rounded">
+            <div class="glass-table">
+                <div class="table-tools d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary">Filter</button>
+                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <div>
+                        <select class="form-control form-control-sm">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+                <table id="list" class="table table-hover table-borderless shadow-sm rounded">
                 <thead>
                     <tr>
                         <th>Student #</th>
@@ -107,8 +136,19 @@
                         </td>
                         @if(\Auth::user()->role === 'admin')
                             <td>
-                                <button class="btn badge badge-danger btn-delete-student" data-id="{{ $s->student_id }}"><img src="{{ asset('images/trash.png') }}" style="height: 35px;"/> </button></button>
-                                <button class="btn badge badge-info btn-get-student" data-id="{{ $s->student_id }}" data-toggle="modal" data-target="#updateStudentModal"><img src="{{ asset('images/edit.png') }}" style="height: 35px;"/> </button></button>
+                                <button class="btn badge badge-danger btn-delete-student" data-id="{{ $s->student_id }}" aria-label="Delete student {{ $s->student_number }}">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                                        <path d="M3 6h18" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 6v14a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 11v6M14 11v6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <button class="btn badge badge-info btn-get-student" data-id="{{ $s->student_id }}" data-toggle="modal" data-target="#updateStudentModal" aria-label="Edit student {{ $s->student_number }}">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                                        <path d="M3 21v-3.6l10.4-10.4 3.6 3.6L6.6 21H3z" stroke="#fff" stroke-width="0" fill="#fff"/>
+                                        <path d="M14.5 7.5l2 2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
                             </td>
                         @endif
                     </tr>
@@ -197,7 +237,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="form-add-student">
+                <form id="form-add-student" role="form" aria-label="Add student form">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Student Number (#2025-0000)</label>
@@ -326,7 +366,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="form-update-student">
+                <form id="form-update-student" role="form" aria-label="Update student form">
                 <div class="modal-body">
                     <input type="hidden" name="student_id">
                     <div class="form-group">
@@ -415,7 +455,12 @@
                     </div>
                     <div class="form-group">
                         <label>Photo</label>
-                        <p><img align='middle' src="/images/user.png" alt="default image" class="avatar"/></p>
+                        <p>
+                            <svg class="avatar" role="img" aria-label="Default user avatar" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <circle cx="12" cy="8" r="4" fill="#e0e6ef"/>
+                                <path d="M3 21c0-3.866 3.582-7 9-7s9 3.134 9 7" fill="#e0e6ef"/>
+                            </svg>
+                        </p>
                         <input type="file" class="form-control btn-update-photo">
                         <input type="hidden" name="student_avatar">
                     </div>

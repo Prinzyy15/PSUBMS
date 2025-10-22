@@ -12,7 +12,21 @@
             <button type="button" class="btn btn-sm btn-success mb-2 font-weight-bold float-right" data-toggle="modal" data-target="#addViolationModal">
                 Add Violation
             </button>
-            <table id="list" class="table table-hover table-borderless shadow-sm rounded">
+            <div class="glass-table">
+                <div class="table-tools d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary">Filter</button>
+                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <div>
+                        <select class="form-control form-control-sm">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+                <table id="list" class="table table-hover table-borderless shadow-sm rounded">
                 <thead>
                     <tr>
                         <th>Label</th>
@@ -33,9 +47,23 @@
                         <td>
                             <a href="/get-violators/{{ $v->vt_id }}" class="btn btn-sm btn-warning">Violators</a>
                         </td>
-                        <td><button class="btn badge badge-inverse btn-get-violation" data-id="{{ $v->vt_id }}"  data-toggle="modal" data-target="#updateViolationModal"><img src="{{ asset('images/edit.png') }}" style="height: 35px;"/> </button></td>
+                        <td>
+                            <button class="btn badge badge-inverse btn-get-violation" data-id="{{ $v->vt_id }}"  data-toggle="modal" data-target="#updateViolationModal" aria-label="Edit violation">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M3 21v-3.6l10.4-10.4 3.6 3.6L6.6 21H3z" fill="#fff" />
+                                    <path d="M14.5 7.5l2 2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </td>
                         
-                        <td><button class="btn badge badge-danger btn-delete-violation" data-id="{{ $v->vt_id }}"><img src="{{ asset('images/trash.png') }}" style="height: 35px;"/> </button></td>
+                        <td>
+                            <button class="btn badge badge-danger btn-delete-violation" data-id="{{ $v->vt_id }}" aria-label="Delete violation">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M3 6h18" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 6v14a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </td>
                         
                     </tr>
                     @endforeach
