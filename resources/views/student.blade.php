@@ -242,8 +242,18 @@ $('#reset-parent-password').on('click', function() {
 			                	@if(\Auth::user()->role === 'admin')
 			                	
 					            @endif
-								<button class="btn badge badge-success btn-get-student-violations" data-id="{{ $v->violation_id }}" data-toggle="modal" data-target="#updateRecordModal"><img src="{{ asset('images/edit2.png') }}" style="height: 35px;"/> </button>
-								<!-- <button class="btn badge badge-warning btn-set-message" data-id="{{ $v->id }}" data-toggle="modal" data-target="#setMessageModal"><img src="{{ asset('images/mail.png') }}" style="height: 35px;"/> </button> -->
+								<button class="btn badge badge-success btn-get-student-violations" data-id="{{ $v->violation_id }}" data-toggle="modal" data-target="#updateRecordModal" aria-label="Edit violation">
+									<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+										<path d="M3 21v-3.6l10.4-10.4 3.6 3.6L6.6 21H3z" fill="#fff" />
+										<path d="M14.5 7.5l2 2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</button>
+								<!-- <button class="btn badge badge-warning btn-set-message" data-id="{{ $v->id }}" data-toggle="modal" data-target="#setMessageModal"> 
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:35px;">
+										<path d="M3 8l7.5 5L18 8" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+										<rect x="3" y="6" width="18" height="12" rx="2" stroke="#fff" stroke-width="1.2"/>
+									</svg>
+								</button> -->
 	                        </td>
 	                    </tr>
 	                    @endforeach
@@ -267,7 +277,12 @@ $('#reset-parent-password').on('click', function() {
 	                        <td>{{ $a->appointment_reason }}</td>
 	                        <td><?php echo date('F j, Y, g:i a', strtotime($a->appointment_date))?></td>
 	                        <td>
-	                        	<button class="btn badge badge-warning printAppointment" data-id="{{ $a->appointment_id }}"><img src="{{ asset('images/mail.png') }}" style="height: 35px;"/> </button>
+								<button class="btn badge badge-warning printAppointment" data-id="{{ $a->appointment_id }}" aria-label="Print appointment">
+									<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+										<path d="M4 4h16v12H4z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M22 10l-10 6L2 10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</button>
 	                        </td>
 	                    </tr>
 	                    @endforeach
