@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Behavioral Monitoring System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="{{ asset('css/theme-dashboard.css') }}" rel="stylesheet">
+    @if(config('ui.theme_enabled'))
+        <link href="{{ asset('css/theme-dashboard.css') }}?v={{ filemtime(public_path('css/theme-dashboard.css')) }}" rel="stylesheet">
+    @endif
     <style>
         :root{
             --cream: #fbf8f2;

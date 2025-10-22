@@ -19,6 +19,9 @@
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    @if(config('ui.theme_enabled'))
+        <link rel="stylesheet" href="{{ asset('css/theme-dashboard.css') }}?v={{ filemtime(public_path('css/theme-dashboard.css')) }}">
+    @endif
     <style type="text/css">
         body {
             font-family: 'Inter', sans-serif;

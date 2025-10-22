@@ -18,7 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/theme-dashboard.css') }}" rel="stylesheet">
+    @if(config('ui.theme_enabled'))
+        <link href="{{ asset('css/theme-dashboard.css') }}?v={{ filemtime(public_path('css/theme-dashboard.css')) }}" rel="stylesheet">
+    @endif
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style type="text/css">
         /* Form controls default styles kept minimal to avoid global overrides */

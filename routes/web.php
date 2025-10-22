@@ -67,6 +67,7 @@ Route::post('/delete-user/{id}', 'HomeController@deleteUser')->name('delete-user
 
 Route::get('/violations', 'HomeController@violations')->name('violations');
 Route::get('/statistics', 'HomeController@statistics')->name('statistics');
+Route::get('/statistics/data', 'HomeController@statisticsData')->name('statistics.data');
 Route::post('/add-violation', 'HomeController@addViolation')->name('add-violation');
 Route::post('/delete-violation/{id}', 'HomeController@deleteViolation')->name('delete-violation');
 Route::get('/get-violation/{id}', 'HomeController@getViolation')->name('get-violation');
@@ -85,4 +86,46 @@ Route::post('/add-block', 'HomeController@addBlock')->name('add-block');
 Route::get('/get-block/{id}', 'HomeController@getBlock')->name('get-block');
 Route::post('/update-block', 'HomeController@updateBlock')->name('update-block');
 Route::post('/delete-block/{id}', 'HomeController@deleteBlock')->name('delete-block');
+
+
+// Prototype preview routes (Tailwind)
+Route::get('/prototype/tailwind-students', function(){
+    return view('tailwind-students');
+});
+Route::get('/prototype/tailwind-dashboard', function(){
+    return view('prototype.tailwind-dashboard');
+});
+Route::get('/prototype/tailwind-student-profile', function(){
+    return view('prototype.tailwind-student-profile');
+});
+
+// Theme demo route for quick visual verification
+Route::get('/theme-demo', function(){
+    return view('theme-demo');
+});
+
+// Debug endpoint: quick information about the theme CSS file (helps confirm server-side asset)
+Route::get('/debug-theme-css', function(){
+    // only expose in debug mode
+    if(!config('app.debug')){
+        abort(404);
+    }
+
+    $path = public_path('css/theme-dashboard.css');
+    $exists = file_exists($path);
+    $mtime = $exists ? filemtime($path) : null;
+    $size = $exists ? filesize($path) : null;
+    $snippet = null;
+    if($exists){
+        $contents = @file_get_contents($path);
+        $snippet = $contents ? substr($contents, 0, 512) : null;
+    }
+    return response()->json([
+        'exists' => $exists,
+        'file' => $exists ? str_replace(base_path(), '', $path) : null,
+        'mtime' => $mtime,
+        'size' => $size,
+        'snippet' => $snippet,
+    ]);
+});
 

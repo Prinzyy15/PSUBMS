@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BMS - Tailwind Prototype</title>
   <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/theme-dashboard.css') }}" rel="stylesheet">
+  @if(config('ui.theme_enabled'))
+    <link href="{{ asset('css/theme-dashboard.css') }}?v={{ filemtime(public_path('css/theme-dashboard.css')) }}" rel="stylesheet">
+  @endif
 </head>
 <body class="antialiased">
   <div class="min-h-screen flex bg-gray-50 dark:bg-gray-900">
